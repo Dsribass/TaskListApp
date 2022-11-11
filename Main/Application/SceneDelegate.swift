@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let safeWindow = UIWindow(windowScene: windowScene)
     safeWindow.frame = UIScreen.main.bounds
     safeWindow.makeKeyAndVisible()
-    safeWindow.rootViewController = ViewController()
+    safeWindow.rootViewController = TodoListViewController()
 
     return safeWindow
   }
