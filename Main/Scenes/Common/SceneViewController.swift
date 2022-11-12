@@ -6,17 +6,14 @@
 //
 
 import UIKit
+import RxSwift
 
 class UISceneViewController<View: UIView>: UIViewController, ViewCode {
   var contentView: View { view as! View }
-
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setupView()
-  }
-
-  required init?(coder: NSCoder) {
-    super.init(coder: coder)
+  let bag = DisposeBag()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     setupView()
   }
 

@@ -17,6 +17,15 @@
 		953CF889291EBC7800936429 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF888291EBC7800936429 /* SceneViewController.swift */; };
 		953CF88B291EBD2000936429 /* UIViewCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF88A291EBD2000936429 /* UIViewCode.swift */; };
 		953CF88D291EBF6900936429 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF88C291EBF6900936429 /* TodoListView.swift */; };
+		953CF890291EC0D200936429 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 953CF88F291EC0D200936429 /* RxCocoa */; };
+		953CF892291EC0D200936429 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 953CF891291EC0D200936429 /* RxRelay */; };
+		953CF894291EC0D200936429 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 953CF893291EC0D200936429 /* RxSwift */; };
+		953CF896291EC2CC00936429 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF895291EC2CC00936429 /* Coordinator.swift */; };
+		953CF898291EC2FC00936429 /* TodoListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF897291EC2FC00936429 /* TodoListCoordinator.swift */; };
+		953CF89A291EC40900936429 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF899291EC40900936429 /* AppCoordinator.swift */; };
+		953CF89C291EC90200936429 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF89B291EC90200936429 /* TodoCell.swift */; };
+		95F993AF291EDE7900F06C54 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 95F993AE291EDE7900F06C54 /* RxDataSources */; };
+		95F993B42920060C00F06C54 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 95F993B32920060C00F06C54 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +41,10 @@
 		953CF888291EBC7800936429 /* SceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewController.swift; sourceTree = "<group>"; };
 		953CF88A291EBD2000936429 /* UIViewCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewCode.swift; sourceTree = "<group>"; };
 		953CF88C291EBF6900936429 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
+		953CF895291EC2CC00936429 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		953CF897291EC2FC00936429 /* TodoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCoordinator.swift; sourceTree = "<group>"; };
+		953CF899291EC40900936429 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		953CF89B291EC90200936429 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +52,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				953CF894291EC0D200936429 /* RxSwift in Frameworks */,
+				95F993AF291EDE7900F06C54 /* RxDataSources in Frameworks */,
+				953CF892291EC0D200936429 /* RxRelay in Frameworks */,
+				953CF890291EC0D200936429 /* RxCocoa in Frameworks */,
+				95F993B42920060C00F06C54 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +114,8 @@
 			children = (
 				953CF866291EA89B00936429 /* AppDelegate.swift */,
 				953CF868291EA89B00936429 /* SceneDelegate.swift */,
+				953CF895291EC2CC00936429 /* Coordinator.swift */,
+				953CF899291EC40900936429 /* AppCoordinator.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -105,6 +125,8 @@
 			children = (
 				953CF883291EAD1E00936429 /* TodoListViewController.swift */,
 				953CF88C291EBF6900936429 /* TodoListView.swift */,
+				953CF897291EC2FC00936429 /* TodoListCoordinator.swift */,
+				953CF89B291EC90200936429 /* TodoCell.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -135,6 +157,13 @@
 			dependencies = (
 			);
 			name = Main;
+			packageProductDependencies = (
+				953CF88F291EC0D200936429 /* RxCocoa */,
+				953CF891291EC0D200936429 /* RxRelay */,
+				953CF893291EC0D200936429 /* RxSwift */,
+				95F993AE291EDE7900F06C54 /* RxDataSources */,
+				95F993B32920060C00F06C54 /* SnapKit */,
+			);
 			productName = TodoListApp;
 			productReference = 953CF863291EA89B00936429 /* Main.app */;
 			productType = "com.apple.product-type.application";
@@ -163,6 +192,11 @@
 				Base,
 			);
 			mainGroup = 953CF85A291EA89B00936429;
+			packageReferences = (
+				953CF88E291EC0D200936429 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				95F993AD291EDE7900F06C54 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				95F993B22920060C00F06C54 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 953CF864291EA89B00936429 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -189,14 +223,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				953CF89A291EC40900936429 /* AppCoordinator.swift in Sources */,
 				953CF884291EAD1E00936429 /* TodoListViewController.swift in Sources */,
 				953CF887291EADA400936429 /* ViewCode.swift in Sources */,
 				953CF88D291EBF6900936429 /* TodoListView.swift in Sources */,
 				953CF867291EA89B00936429 /* AppDelegate.swift in Sources */,
+				953CF898291EC2FC00936429 /* TodoListCoordinator.swift in Sources */,
 				953CF889291EBC7800936429 /* SceneViewController.swift in Sources */,
+				953CF89C291EC90200936429 /* TodoCell.swift in Sources */,
 				953CF88B291EBD2000936429 /* UIViewCode.swift in Sources */,
 				953CF869291EA89B00936429 /* SceneDelegate.swift in Sources */,
 				953CF871291EA89B00936429 /* TodoListApp.xcdatamodeld in Sources */,
+				953CF896291EC2CC00936429 /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +442,61 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		953CF88E291EC0D200936429 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		95F993AD291EDE7900F06C54 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		95F993B22920060C00F06C54 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		953CF88F291EC0D200936429 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 953CF88E291EC0D200936429 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		953CF891291EC0D200936429 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 953CF88E291EC0D200936429 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		953CF893291EC0D200936429 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 953CF88E291EC0D200936429 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		95F993AE291EDE7900F06C54 /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95F993AD291EDE7900F06C54 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
+		95F993B32920060C00F06C54 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95F993B22920060C00F06C54 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		953CF86F291EA89B00936429 /* TodoListApp.xcdatamodeld */ = {
