@@ -16,10 +16,23 @@ class TaskCoordinator: Coordinator {
 
   func start() {
     navigationController.navigationBar.prefersLargeTitles = true
-    let taskListVC = TaskListViewController()
+    let taskListVC = TaskListViewController(navigation: self)
 
     navigationController.setViewControllers(
       [taskListVC],
       animated: false)
+  }
+}
+
+extension TaskCoordinator: TaskListNavigation {
+  func openAddTaskModal() {
+    let addTaskVC = AddTaskViewController()
+    let nav = UINavigationController(rootViewController: addTaskVC)
+    nav.modalPresentationStyle = .pageSheet
+
+    if let sheet = nav.sheetPresentationController {
+      sheet.detents = [.medium()]
+    }
+    navigationController.viewControllers[0].present(nav, animated: true)
   }
 }

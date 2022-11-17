@@ -13,6 +13,7 @@ import RxSwift
 class TaskListViewController: UISceneViewController<TaskListView> {
   typealias DataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, String>>
   // MARK: - Properties
+  private let navigation: TaskListNavigation
   let sampleData = [
     "Tarefa 1",
     "Tarefa 2",
@@ -26,7 +27,8 @@ class TaskListViewController: UISceneViewController<TaskListView> {
     ])
   }()
   // MARK: - Initializers
-  init() {
+  init(navigation: TaskListNavigation) {
+    self.navigation = navigation
     super.init(nibName: nil,bundle: nil)
   }
 
@@ -56,7 +58,7 @@ class TaskListViewController: UISceneViewController<TaskListView> {
 
     navigationItem.rightBarButtonItem?.rx.tap
       .debug()
-      .bind {}
+      .bind { self.navigation.openAddTaskModal() }
       .disposed(by: bag)
   }
 
@@ -78,4 +80,8 @@ class TaskListViewController: UISceneViewController<TaskListView> {
   override func setupConstraints() {
     super.setupConstraints()
   }
+}
+
+protocol TaskListNavigation {
+  func openAddTaskModal()
 }
