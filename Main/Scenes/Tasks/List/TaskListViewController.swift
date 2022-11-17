@@ -1,5 +1,5 @@
 //
-//  TodoListViewController.swift
+//  TaskListViewController.swift
 //  Main
 //
 //  Created by Daniel de Souza Ribas on 11/11/22.
@@ -10,7 +10,7 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-class TodoListViewController: UISceneViewController<TodoListView> {
+class TaskListViewController: UISceneViewController<TaskListView> {
   typealias DataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, String>>
   // MARK: - Properties
   let sampleData = [
@@ -39,7 +39,7 @@ class TodoListViewController: UISceneViewController<TodoListView> {
     super.viewDidLoad()
     let dataSource = DataSource(
       configureCell: { (_, table, _, data) in
-        let cell = table.dequeueReusableCell(withIdentifier: "TodoCell") as! TodoCell
+        let cell = table.dequeueReusableCell(withIdentifier: TaskCell.reuseIdentifier) as! TaskCell
         cell.configure(priority: .high, title: data)
         return cell
       },
@@ -53,12 +53,22 @@ class TodoListViewController: UISceneViewController<TodoListView> {
         .items(dataSource: dataSource)
       )
       .disposed(by: bag)
+
+    navigationItem.rightBarButtonItem?.rx.tap
+      .debug()
+      .bind {}
+      .disposed(by: bag)
   }
 
   // MARK: - Methods
   override func setupLayout() {
     super.setupLayout()
     navigationItem.title = "Tarefas"
+    navigationItem.rightBarButtonItem = UIBarButtonItem(
+      title: "Adicionar",
+      style: .plain,
+      target: .none,
+      action: .none)
   }
 
   override func setupSubviews() {

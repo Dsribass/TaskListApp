@@ -17,12 +17,12 @@ class AppCoordinator: Coordinator {
 
   func start() {
     let nav = UINavigationController()
-    let todoListCoordinator = TodoListCoordinator(navigationController: nav)
-    children.append(todoListCoordinator)
+    let taskCoordinator = TaskCoordinator(navigationController: nav)
+    children.append(taskCoordinator)
     window.rootViewController = nav
     window.makeKeyAndVisible()
 
-    todoListCoordinator.start()
+    taskCoordinator.start()
   }
 }
 

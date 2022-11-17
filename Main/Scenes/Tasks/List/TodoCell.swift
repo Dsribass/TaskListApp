@@ -8,10 +8,12 @@
 import UIKit
 import SnapKit
 
-class TodoCell: UITableViewCell, ViewCode {
+class TaskCell: UITableViewCell, ViewCode {
   enum Priority {
     case low, medium, high
   }
+
+  static let reuseIdentifier = String(describing: TaskCell.self)
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -44,8 +46,7 @@ class TodoCell: UITableViewCell, ViewCode {
     }()
   }
 
-  func setupLayout() {
-  }
+  func setupLayout() {}
 
   func setupSubviews() {
     addSubview(priority)

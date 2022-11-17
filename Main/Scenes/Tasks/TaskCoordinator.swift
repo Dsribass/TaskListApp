@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoListCoordinator: Coordinator {
+class TaskCoordinator: Coordinator {
   let navigationController: UINavigationController
 
   init(navigationController: UINavigationController) {
@@ -16,10 +16,10 @@ class TodoListCoordinator: Coordinator {
 
   func start() {
     navigationController.navigationBar.prefersLargeTitles = true
-    let todoListViewController = TodoListViewController()
+    let taskListVC = TaskListViewController()
 
     navigationController.setViewControllers(
-      [todoListViewController],
+      [taskListVC],
       animated: false)
   }
 }

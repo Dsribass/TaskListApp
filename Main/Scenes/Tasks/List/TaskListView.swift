@@ -1,5 +1,5 @@
 //
-//  TodoListView.swift
+//  TaskListView.swift
 //  Main
 //
 //  Created by Daniel de Souza Ribas on 11/11/22.
@@ -8,10 +8,10 @@
 import UIKit
 import SnapKit
 
-class TodoListView: UIViewCode {
+class TaskListView: UIViewCode {
   var tableView: UITableView = {
     let table = UITableView(frame: .zero, style: .insetGrouped)
-    table.register(TodoCell.self, forCellReuseIdentifier: "TodoCell")
+    table.register(TaskCell.self, forCellReuseIdentifier: TaskCell.reuseIdentifier)
     return table
   }()
 
