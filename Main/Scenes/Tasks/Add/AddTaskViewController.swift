@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 
 class AddTaskViewController: SceneViewController<AddTaskView> {
+  let onAddNewTaskSubject = PublishSubject<Task>()
+  var onAddNewTask: Observable<Task> { onAddNewTaskSubject }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupObservables()
@@ -15,13 +19,12 @@ class AddTaskViewController: SceneViewController<AddTaskView> {
 
   override func setupLayout() {
     super.setupLayout()
-    navigationItem.title = "Nova Tarefa"
   }
 
   func setupObservables() {
     contentView.submitButton.rx.tap
       .bind { [unowned self] _ in
-        contentView.textField.resignFirstResponder()
+        contentView.titleTextField.resignFirstResponder()
       }
       .disposed(by: bag)
   }
