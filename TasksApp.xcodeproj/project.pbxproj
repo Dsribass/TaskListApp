@@ -26,6 +26,9 @@
 		953CF89C291EC90200936429 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF89B291EC90200936429 /* TodoCell.swift */; };
 		959390122926AA9300A5FB3E /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959390112926AA9300A5FB3E /* AddTaskViewController.swift */; };
 		959390142926AAC900A5FB3E /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959390132926AAC900A5FB3E /* AddTaskView.swift */; };
+		95A621D32927BF400013EA73 /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A621D22927BF400013EA73 /* TaskService.swift */; };
+		95A621D62927BF930013EA73 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A621D52927BF930013EA73 /* Task.swift */; };
+		95A621D92927C6CE0013EA73 /* ApplicationErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A621D82927C6CE0013EA73 /* ApplicationErrors.swift */; };
 		95F993AF291EDE7900F06C54 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 95F993AE291EDE7900F06C54 /* RxDataSources */; };
 		95F993B42920060C00F06C54 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 95F993B32920060C00F06C54 /* SnapKit */; };
 /* End PBXBuildFile section */
@@ -49,6 +52,9 @@
 		953CF89B291EC90200936429 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		959390112926AA9300A5FB3E /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		959390132926AAC900A5FB3E /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		95A621D22927BF400013EA73 /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
+		95A621D52927BF930013EA73 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		95A621D82927C6CE0013EA73 /* ApplicationErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationErrors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,8 @@
 		953CF865291EA89B00936429 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				95A621D42927BF8B0013EA73 /* Model */,
+				95A621D02927BF260013EA73 /* Data */,
 				953CF87F291EAA1400936429 /* Application */,
 				953CF87E291EA9FB00936429 /* ProjectFiles */,
 				953CF87D291EA9F000936429 /* Scenes */,
@@ -152,6 +160,31 @@
 				959390132926AAC900A5FB3E /* AddTaskView.swift */,
 			);
 			path = Add;
+			sourceTree = "<group>";
+		};
+		95A621D02927BF260013EA73 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				95A621D12927BF2E0013EA73 /* Repository */,
+				95A621D82927C6CE0013EA73 /* ApplicationErrors.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		95A621D12927BF2E0013EA73 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				95A621D22927BF400013EA73 /* TaskService.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		95A621D42927BF8B0013EA73 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				95A621D52927BF930013EA73 /* Task.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		95F993B629200B5000F06C54 /* List */ = {
@@ -257,11 +290,14 @@
 				959390142926AAC900A5FB3E /* AddTaskView.swift in Sources */,
 				953CF884291EAD1E00936429 /* TaskListViewController.swift in Sources */,
 				953CF887291EADA400936429 /* ViewCode.swift in Sources */,
+				95A621D92927C6CE0013EA73 /* ApplicationErrors.swift in Sources */,
 				953CF88D291EBF6900936429 /* TaskListView.swift in Sources */,
 				953CF867291EA89B00936429 /* AppDelegate.swift in Sources */,
 				953CF898291EC2FC00936429 /* TaskCoordinator.swift in Sources */,
 				953CF889291EBC7800936429 /* SceneViewController.swift in Sources */,
+				95A621D62927BF930013EA73 /* Task.swift in Sources */,
 				953CF89C291EC90200936429 /* TodoCell.swift in Sources */,
+				95A621D32927BF400013EA73 /* TaskService.swift in Sources */,
 				953CF88B291EBD2000936429 /* UIViewCode.swift in Sources */,
 				953CF869291EA89B00936429 /* SceneDelegate.swift in Sources */,
 				953CF871291EA89B00936429 /* TodoListApp.xcdatamodeld in Sources */,
