@@ -10,24 +10,45 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-class TaskListViewController: UISceneViewController<TaskListView> {
-  typealias DataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, String>>
+class TaskListViewController: SceneViewController<TaskListView> {
+
+  typealias TaskSectionModel = SectionModel<String, Task>
+  typealias DataSource = RxTableViewSectionedReloadDataSource<TaskSectionModel>
+
   // MARK: - Properties
   private let navigation: TaskListNavigation
-  let sampleData = [
-    "Tarefa 1",
-    "Tarefa 2",
-    "Tarefa 3",
-  ]
+  private let taskListViewModel: TaskListViewModel
 
-  lazy var items: Observable<[SectionModel<String, String>]> = {
-    Observable.just([
-      SectionModel(model: "Pendentes", items: sampleData),
-      SectionModel(model: "Concluidos", items: sampleData)
-    ])
+  let dataSource: DataSource = {
+    DataSource(
+      configureCell: { (_, table, _, task) in
+        let cell = table.dequeueReusableCell(withIdentifier: TaskCell.reuseIdentifier) as! TaskCell
+        cell.configure(
+          priority: {
+            switch(task.priority) {
+            case .high: return .high
+            case .medium: return .medium
+            case .low: return .low
+            }
+          }(),
+          title: task.title)
+
+        return cell
+      },
+      titleForHeaderInSection: { dataSource, sectionIndex in
+        return dataSource[sectionIndex].model
+      }
+    )
   }()
+
+  private let tasksSectionsSubject = BehaviorSubject<[TaskSectionModel]>(value: [])
+  private var tasksSections: Observable<[TaskSectionModel]> {
+    tasksSectionsSubject
+  }
+
   // MARK: - Initializers
-  init(navigation: TaskListNavigation) {
+  init(taskListViewModel: TaskListViewModel, navigation: TaskListNavigation) {
+    self.taskListViewModel = taskListViewModel
     self.navigation = navigation
     super.init(nibName: nil,bundle: nil)
   }
@@ -39,18 +60,27 @@ class TaskListViewController: UISceneViewController<TaskListView> {
   // MARK: - View Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    let dataSource = DataSource(
-      configureCell: { (_, table, _, data) in
-        let cell = table.dequeueReusableCell(withIdentifier: TaskCell.reuseIdentifier) as! TaskCell
-        cell.configure(priority: .high, title: data)
-        return cell
-      },
-      titleForHeaderInSection: { dataSource, sectionIndex in
-        return dataSource[sectionIndex].model
-      }
-    )
+    setupObservables()
+  }
 
-    items
+  // MARK: - Methods
+  func setupObservables() {
+    taskListViewModel.statesObservable
+      .bind { [unowned self] states in
+        switch states {
+        case .loading:
+          startLoading()
+        case .error:
+          stopLoading()
+          showError()
+        case .success(let tasks):
+          stopLoading()
+          showTasks(tasks)
+        }
+      }
+      .disposed(by: bag)
+
+    tasksSections
       .bind(to: contentView.tableView.rx
         .items(dataSource: dataSource)
       )
@@ -61,7 +91,6 @@ class TaskListViewController: UISceneViewController<TaskListView> {
       .disposed(by: bag)
   }
 
-  // MARK: - Methods
   override func setupLayout() {
     super.setupLayout()
     navigationItem.title = "Tarefas"
@@ -78,6 +107,15 @@ class TaskListViewController: UISceneViewController<TaskListView> {
 
   override func setupConstraints() {
     super.setupConstraints()
+  }
+}
+
+extension TaskListViewController: ViewStates {
+  func showTasks(_ tasks: TaskListViewModel.TaskSectionsViewModel) {
+    tasksSectionsSubject.onNext([
+      SectionModel(model: "Pendentes", items: tasks.pending),
+      SectionModel(model: "Concluídos", items: tasks.finished)
+    ])
   }
 }
 

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddTaskViewController: UISceneViewController<AddTaskView> {
+class AddTaskViewController: SceneViewController<AddTaskView> {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupObservables()

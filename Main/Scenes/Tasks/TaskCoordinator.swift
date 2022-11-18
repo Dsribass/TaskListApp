@@ -16,7 +16,10 @@ class TaskCoordinator: Coordinator {
 
   func start() {
     navigationController.navigationBar.prefersLargeTitles = true
-    let taskListVC = TaskListViewController(navigation: self)
+
+    let service = FakeTaskServiceImpl()
+    let viewModel = TaskListViewModel(service: service)
+    let taskListVC = TaskListViewController(taskListViewModel: viewModel,navigation: self)
 
     navigationController.setViewControllers(
       [taskListVC],

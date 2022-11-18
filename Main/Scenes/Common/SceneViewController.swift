@@ -8,9 +8,15 @@
 import UIKit
 import RxSwift
 
-class UISceneViewController<View: UIView>: UIViewController, ViewCode {
-  var contentView: View { view as! View }
+class ViewController: UIViewController {
   let bag = DisposeBag()
+
+  let onTryAgainSubject = PublishSubject<Void>()
+  var onTryAgain: Observable<Void> { onTryAgainSubject }
+}
+
+class SceneViewController<View: UIView>: ViewController, ViewCode {
+  var contentView: View { view as! View }
   
   override func viewDidLoad() {
     super.viewDidLoad()
