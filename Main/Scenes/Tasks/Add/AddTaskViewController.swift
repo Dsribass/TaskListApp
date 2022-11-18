@@ -8,8 +8,21 @@
 import UIKit
 
 class AddTaskViewController: UISceneViewController<AddTaskView> {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setupObservables()
+  }
 
+  override func setupLayout() {
+    super.setupLayout()
+    navigationItem.title = "Nova Tarefa"
+  }
+
+  func setupObservables() {
+    contentView.submitButton.rx.tap
+      .bind { [unowned self] _ in
+        contentView.textField.resignFirstResponder()
+      }
+      .disposed(by: bag)
+  }
 }

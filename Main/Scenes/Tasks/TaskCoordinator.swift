@@ -31,7 +31,7 @@ extension TaskCoordinator: TaskListNavigation {
     nav.modalPresentationStyle = .pageSheet
 
     if let sheet = nav.sheetPresentationController {
-      sheet.detents = [.medium()]
+      sheet.detents = [.custom {_ in 200}]
     }
     navigationController.viewControllers[0].present(nav, animated: true)
   }

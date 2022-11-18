@@ -57,8 +57,7 @@ class TaskListViewController: UISceneViewController<TaskListView> {
       .disposed(by: bag)
 
     navigationItem.rightBarButtonItem?.rx.tap
-      .debug()
-      .bind { self.navigation.openAddTaskModal() }
+      .bind { [unowned self] _ in navigation.openAddTaskModal() }
       .disposed(by: bag)
   }
 
