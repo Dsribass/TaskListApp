@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		952A87EC292BC3FB003655F5 /* AddTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952A87EB292BC3FB003655F5 /* AddTaskViewModel.swift */; };
 		953CF867291EA89B00936429 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF866291EA89B00936429 /* AppDelegate.swift */; };
 		953CF869291EA89B00936429 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF868291EA89B00936429 /* SceneDelegate.swift */; };
 		953CF871291EA89B00936429 /* TodoListApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 953CF86F291EA89B00936429 /* TodoListApp.xcdatamodeld */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		952A87EA292BC13E003655F5 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		952A87EB292BC3FB003655F5 /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
 		953CF863291EA89B00936429 /* Main.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Main.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		953CF866291EA89B00936429 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		953CF868291EA89B00936429 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +85,7 @@
 		953CF85A291EA89B00936429 = {
 			isa = PBXGroup;
 			children = (
+				952A87EA292BC13E003655F5 /* MyPlayground.playground */,
 				953CF865291EA89B00936429 /* Main */,
 				953CF864291EA89B00936429 /* Products */,
 			);
@@ -98,11 +102,11 @@
 		953CF865291EA89B00936429 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				953CF87F291EAA1400936429 /* Application */,
 				95A621D42927BF8B0013EA73 /* Model */,
 				95A621D02927BF260013EA73 /* Data */,
-				953CF87F291EAA1400936429 /* Application */,
-				953CF87E291EA9FB00936429 /* ProjectFiles */,
 				953CF87D291EA9F000936429 /* Scenes */,
+				953CF87E291EA9FB00936429 /* ProjectFiles */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -166,6 +170,7 @@
 			children = (
 				959390112926AA9300A5FB3E /* AddTaskViewController.swift */,
 				959390132926AAC900A5FB3E /* AddTaskView.swift */,
+				952A87EB292BC3FB003655F5 /* AddTaskViewModel.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 				953CF88D291EBF6900936429 /* TaskListView.swift in Sources */,
 				953CF867291EA89B00936429 /* AppDelegate.swift in Sources */,
 				953CF898291EC2FC00936429 /* TaskCoordinator.swift in Sources */,
+				952A87EC292BC3FB003655F5 /* AddTaskViewModel.swift in Sources */,
 				953CF889291EBC7800936429 /* SceneViewController.swift in Sources */,
 				95A621D62927BF930013EA73 /* Task.swift in Sources */,
 				953CF89C291EC90200936429 /* TodoCell.swift in Sources */,

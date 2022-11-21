@@ -29,7 +29,8 @@ class TaskCoordinator: Coordinator {
 
 extension TaskCoordinator: TaskListNavigation {
   func openAddTaskModal() {
-    let addTaskVC = AddTaskViewController()
+    let viewModel = AddTaskViewModel()
+    let addTaskVC = AddTaskViewController(addTaskViewModel: viewModel)
     let nav = UINavigationController(rootViewController: addTaskVC)
     nav.modalPresentationStyle = .pageSheet
 

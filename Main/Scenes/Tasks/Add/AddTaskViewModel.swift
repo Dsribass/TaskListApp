@@ -1,0 +1,66 @@
+//
+//  AddTaskViewModel.swift
+//  Main
+//
+//  Created by Daniel de Souza Ribas on 21/11/22.
+//
+
+import RxSwift
+
+class AddTaskViewModel {
+  let bag = DisposeBag()
+
+  private let isTextFieldsFilledSubject = BehaviorSubject<Bool>(value: false)
+  private var isTextFieldsFilled: Observable<Bool> { isTextFieldsFilledSubject }
+
+  private let isSegmentControlSelectSubject = BehaviorSubject<Bool>(value: false)
+  private var isSegmentControlSelect: Observable<Bool> { isSegmentControlSelectSubject }
+
+  let onEnabledSubmitButtonSubject = BehaviorSubject<Bool>(value: false)
+  var onEnabledSubmitButton: Observable<Bool> { onEnabledSubmitButtonSubject }
+
+  let onTitleTextFieldSubject = BehaviorSubject<String?>(value: nil)
+  var onTitleTextField: Observable<String?> { onTitleTextFieldSubject }
+
+  let onDescriptionTextFieldSubject = BehaviorSubject<String?>(value: nil)
+  var onDescriptionTextField: Observable<String?> { onDescriptionTextFieldSubject }
+
+  let onPriorityOptionSubject = BehaviorSubject<Int?>(value: nil)
+  var onPriorityOption: Observable<Int?> { onPriorityOptionSubject }
+
+  init() {
+    Observable.combineLatest(
+      onTitleTextField,
+      onDescriptionTextField
+    )
+    .flatMap { [unowned self] title, description in
+      let titleHasValue = textFieldHasValue(title)
+      let descriptionHasValue = textFieldHasValue(description)
+      return Observable.just(titleHasValue && descriptionHasValue)
+    }
+    .bind(to: isTextFieldsFilledSubject)
+    .disposed(by: bag)
+
+    onPriorityOption
+      .flatMap { Observable.just($0 != nil && $0 != -1) }
+      .bind(to: isSegmentControlSelectSubject)
+      .disposed(by: bag)
+
+    Observable.combineLatest(
+      isTextFieldsFilled,
+      isSegmentControlSelect
+    ) { isTextFieldsFilled, isSegmentControlSelected in
+      return isTextFieldsFilled && isSegmentControlSelected
+    }
+    .bind(to: onEnabledSubmitButtonSubject)
+    .disposed(by: bag)
+  }
+
+  private func textFieldHasValue(_  value: String?) -> Bool {
+    guard let value = value else {
+      return false
+    }
+
+    return !value.isEmpty
+  }
+}
