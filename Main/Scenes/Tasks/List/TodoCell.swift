@@ -30,18 +30,37 @@ class TaskCell: UITableViewCell, ViewCode {
     return label
   }()
 
-  let priority = UIView()
+  let priority: UIImageView = {
+    let view = UIImageView()
+    return view
+  }()
 
   func configure(priority: Priority, title: String) {
     self.title.text = title
-    self.priority.backgroundColor = {
+    self.priority.image = {
       switch priority {
       case .low:
-        return .green
+        return UIImage(
+          named: "priority.arrow"
+        )?.withTintColor(.systemGreen)
       case .medium:
-        return .yellow
+        return UIImage(
+          named: "priority.line"
+        )?.withTintColor(.systemYellow)
       case .high:
-        return .red
+        return UIImage(
+          named: "priority.arrow"
+        )?.withTintColor(.systemRed)
+      }
+    }()
+    self.priority.transform = {
+      switch priority {
+      case .low:
+        return self.priority.transform.rotated(by: .pi / 2)
+      case .medium:
+        return self.priority.transform.rotated(by: .pi)
+      case .high:
+        return self.priority.transform.rotated(by: .pi * 1.5)
       }
     }()
   }
@@ -55,7 +74,7 @@ class TaskCell: UITableViewCell, ViewCode {
 
   func setupConstraints() {
     priority.snp.makeConstraints { [unowned self] make in
-      make.width.height.equalTo(10)
+      make.width.height.equalTo(14)
       make.centerY.equalTo(self)
       make.leading.equalTo(self).offset(24)
     }
