@@ -28,6 +28,11 @@ class TaskCoordinator: Coordinator {
 }
 
 extension TaskCoordinator: TaskListNavigation {
+  func openDetail(_ id: UUID) {
+    let taskDetail = TaskDetailViewController(id: id)
+    navigationController.pushViewController(taskDetail, animated: true)
+  }
+
   func openAddTaskModal() {
     let viewModel = AddTaskViewModel()
     let addTaskVC = AddTaskViewController(addTaskViewModel: viewModel)
