@@ -9,7 +9,8 @@ import UIKit
 
 class AddTaskView: UIViewCode {
   private var initialTag = 0
-  private let container = UIView()
+
+  let container = UIView()
 
   let pageTitle: UILabel = {
     let lb = UILabel()
@@ -19,52 +20,34 @@ class AddTaskView: UIViewCode {
     return lb
   }()
 
-  let labelForTitle: UILabel = {
-    let lb = UILabel()
-    lb.text = "Titulo"
-    lb.font = UIFont.boldSystemFont(ofSize: 14)
-    return lb
+  let form: UIStackView = {
+    let stackView = UIStackView()
+    stackView.axis = .vertical
+    stackView.spacing = 12
+
+    return stackView
   }()
 
-  let titleTextField: UITextField = {
-    let tf = UITextField()
-    tf.borderStyle = .roundedRect
-    tf.clearButtonMode = .whileEditing
-    tf.keyboardType = .alphabet
-    tf.returnKeyType = .next
-    tf.tag = 1
+  let titleTextFieldContainer: UITextFieldContainer = {
+    let tf = UITextFieldContainer(label: "Titulo")
+    tf.textField.keyboardType = .alphabet
+    tf.textField.returnKeyType = .next
+    tf.textField.tag = 1
     return tf
   }()
 
-  let labelForDescription: UILabel = {
-    let lb = UILabel()
-    lb.text = "Descrição"
-    lb.font = UIFont.boldSystemFont(ofSize: 14)
-    return lb
-  }()
-
-  let descriptionTextField: UITextView = {
-    let tv = UITextView()
-    tv.keyboardType = .default
-    tv.font = UIFont.preferredFont(forTextStyle: .body)
-    tv.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
-    tv.layer.borderWidth = 1.0
-    tv.layer.cornerRadius = 8
-    tv.returnKeyType = .done
-    tv.tag = 2
+  let descriptionTextFieldContainer: UITextViewContainer = {
+    let tv = UITextViewContainer(label: "Descrição")
+    tv.textView.keyboardType = .default
+    tv.textView.returnKeyType = .done
+    tv.textView.tag = 2
     return tv
   }()
 
-  let labelForPriority: UILabel = {
-    let lb = UILabel()
-    lb.text = "Prioridade"
-    lb.font = UIFont.boldSystemFont(ofSize: 14)
-    return lb
-  }()
-
-  let priority: UISegmentedControl = {
-    let sgControl = UISegmentedControl(items: ["Baixo", "Médio", "Alto"])
-    sgControl.selectedSegmentTintColor = .tintColor
+  let priorityContainer: UISegmentedControlContainer = {
+    let sgControl = UISegmentedControlContainer(
+      label: "Prioridade",
+      items: ["Baixo", "Médio", "Alto"])
     return sgControl
   }()
 
@@ -79,8 +62,8 @@ class AddTaskView: UIViewCode {
 
   override func setupLayout() {
     super.setupLayout()
-    titleTextField.delegate = self
-    descriptionTextField.delegate = self
+    titleTextFieldContainer.textField.delegate = self
+    descriptionTextFieldContainer.textView.delegate = self
 
     backgroundColor = .systemBackground
   }
@@ -89,16 +72,10 @@ class AddTaskView: UIViewCode {
     super.setupSubviews()
     addSubview(container)
     container.addSubview(pageTitle)
-
-    container.addSubview(labelForTitle)
-    container.addSubview(titleTextField)
-
-    container.addSubview(labelForDescription)
-    container.addSubview(descriptionTextField)
-
-    container.addSubview(labelForPriority)
-    container.addSubview(priority)
-
+    container.addSubview(form)
+    form.addArrangedSubview(titleTextFieldContainer)
+    form.addArrangedSubview(descriptionTextFieldContainer)
+    form.addArrangedSubview(priorityContainer)
     container.addSubview(submitButton)
   }
 
@@ -115,47 +92,15 @@ class AddTaskView: UIViewCode {
       make.trailing.equalTo(container)
     }
 
-    labelForTitle.snp.makeConstraints { make in
+    form.snp.makeConstraints { make in
       make.top.equalTo(pageTitle.snp.bottom).offset(32)
-      make.leading.equalTo(container)
-      make.trailing.equalTo(container)
-    }
-
-    titleTextField.snp.makeConstraints { make in
-      make.height.equalTo(48)
-      make.top.equalTo(labelForTitle.snp.bottom).offset(4)
-      make.leading.equalTo(container)
-      make.trailing.equalTo(container)
-    }
-
-    labelForDescription.snp.makeConstraints { make in
-      make.top.equalTo(titleTextField.snp.bottom).offset(12)
-      make.leading.equalTo(container)
-      make.trailing.equalTo(container)
-    }
-
-    descriptionTextField.snp.makeConstraints { make in
-      make.height.equalTo(96)
-      make.top.equalTo(labelForDescription.snp.bottom).offset(4)
-      make.leading.equalTo(container)
-      make.trailing.equalTo(container)
-    }
-
-    labelForPriority.snp.makeConstraints { make in
-      make.top.equalTo(descriptionTextField.snp.bottom).offset(12)
-      make.leading.equalTo(container)
-      make.trailing.equalTo(container)
-    }
-
-    priority.snp.makeConstraints { make in
-      make.top.equalTo(labelForPriority.snp.bottom).offset(4)
       make.leading.equalTo(container)
       make.trailing.equalTo(container)
     }
 
     submitButton.snp.makeConstraints { make in
       make.height.equalTo(48)
-      make.top.equalTo(priority.snp.bottom).offset(24)
+      make.top.equalTo(form.snp.bottom).offset(24)
       make.leading.equalTo(container)
       make.trailing.equalTo(container)
     }

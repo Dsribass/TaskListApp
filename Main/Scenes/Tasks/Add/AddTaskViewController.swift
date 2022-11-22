@@ -33,15 +33,15 @@ class AddTaskViewController: SceneViewController<AddTaskView> {
   }
 
   func setupObservables() {
-    contentView.titleTextField.rx.text
+    contentView.titleTextFieldContainer.textField.rx.text
       .bind(to: addTaskViewModel.onTitleTextFieldSubject)
       .disposed(by: bag)
 
-    contentView.descriptionTextField.rx.text
+    contentView.descriptionTextFieldContainer.textView.rx.text
       .bind(to: addTaskViewModel.onDescriptionTextFieldSubject)
       .disposed(by: bag)
 
-    contentView.priority.rx.selectedSegmentIndex
+    contentView.priorityContainer.segmentedControl.rx.selectedSegmentIndex
       .bind(to: addTaskViewModel.onPriorityOptionSubject)
       .disposed(by: bag)
 
@@ -53,7 +53,7 @@ class AddTaskViewController: SceneViewController<AddTaskView> {
 
     contentView.submitButton.rx.tap
       .bind { [unowned self] _ in
-        contentView.titleTextField.resignFirstResponder()
+        contentView.titleTextFieldContainer.resignFirstResponder()
       }
       .disposed(by: bag)
   }

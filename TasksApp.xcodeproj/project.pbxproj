@@ -27,6 +27,9 @@
 		953CF898291EC2FC00936429 /* TaskCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF897291EC2FC00936429 /* TaskCoordinator.swift */; };
 		953CF89A291EC40900936429 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF899291EC40900936429 /* AppCoordinator.swift */; };
 		953CF89C291EC90200936429 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953CF89B291EC90200936429 /* TaskCell.swift */; };
+		9568776D292D262D00A0693A /* UITextFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9568776C292D262D00A0693A /* UITextFieldContainer.swift */; };
+		95687770292D287300A0693A /* UITextViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9568776F292D287300A0693A /* UITextViewContainer.swift */; };
+		95687772292D29A000A0693A /* UISegmentedControlContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95687771292D29A000A0693A /* UISegmentedControlContainer.swift */; };
 		959390122926AA9300A5FB3E /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959390112926AA9300A5FB3E /* AddTaskViewController.swift */; };
 		959390142926AAC900A5FB3E /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959390132926AAC900A5FB3E /* AddTaskView.swift */; };
 		95A621D32927BF400013EA73 /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A621D22927BF400013EA73 /* TaskService.swift */; };
@@ -60,6 +63,9 @@
 		953CF897291EC2FC00936429 /* TaskCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCoordinator.swift; sourceTree = "<group>"; };
 		953CF899291EC40900936429 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		953CF89B291EC90200936429 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		9568776C292D262D00A0693A /* UITextFieldContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldContainer.swift; sourceTree = "<group>"; };
+		9568776F292D287300A0693A /* UITextViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewContainer.swift; sourceTree = "<group>"; };
+		95687771292D29A000A0693A /* UISegmentedControlContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControlContainer.swift; sourceTree = "<group>"; };
 		959390112926AA9300A5FB3E /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		959390132926AAC900A5FB3E /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		95A621D22927BF400013EA73 /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
@@ -160,13 +166,24 @@
 		953CF885291EAD9800936429 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9568776E292D263200A0693A /* Components */,
 				953CF886291EADA400936429 /* ViewCode.swift */,
 				953CF888291EBC7800936429 /* SceneViewController.swift */,
 				953CF88A291EBD2000936429 /* UIViewCode.swift */,
-				95A621DC2927D1710013EA73 /* ErrorView.swift */,
 				95A621DE2927D4200013EA73 /* ViewStates.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		9568776E292D263200A0693A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				95A621DC2927D1710013EA73 /* ErrorView.swift */,
+				9568776C292D262D00A0693A /* UITextFieldContainer.swift */,
+				9568776F292D287300A0693A /* UITextViewContainer.swift */,
+				95687771292D29A000A0693A /* UISegmentedControlContainer.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		959390102926AA6400A5FB3E /* Add */ = {
@@ -321,6 +338,7 @@
 				952A87EC292BC3FB003655F5 /* AddTaskViewModel.swift in Sources */,
 				953CF889291EBC7800936429 /* SceneViewController.swift in Sources */,
 				95A621D62927BF930013EA73 /* Task.swift in Sources */,
+				9568776D292D262D00A0693A /* UITextFieldContainer.swift in Sources */,
 				953CF89C291EC90200936429 /* TaskCell.swift in Sources */,
 				95A621D32927BF400013EA73 /* TaskService.swift in Sources */,
 				953CF88B291EBD2000936429 /* UIViewCode.swift in Sources */,
@@ -328,6 +346,8 @@
 				953CF871291EA89B00936429 /* TodoListApp.xcdatamodeld in Sources */,
 				953CF896291EC2CC00936429 /* Coordinator.swift in Sources */,
 				95A621DF2927D4200013EA73 /* ViewStates.swift in Sources */,
+				95687770292D287300A0693A /* UITextViewContainer.swift in Sources */,
+				95687772292D29A000A0693A /* UISegmentedControlContainer.swift in Sources */,
 				959390122926AA9300A5FB3E /* AddTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
