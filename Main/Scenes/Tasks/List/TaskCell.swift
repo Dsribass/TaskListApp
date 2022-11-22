@@ -13,6 +13,10 @@ class TaskCell: UITableViewCell, ViewCode {
     case low, medium, high
   }
 
+  enum Status {
+    case pending, finished
+  }
+
   static let reuseIdentifier = String(describing: TaskCell.self)
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -35,8 +39,10 @@ class TaskCell: UITableViewCell, ViewCode {
     return view
   }()
 
-  func configure(priority: Priority, title: String) {
-    self.title.text = title
+  func configure(title: String, priority: Priority, status: Status) {
+    self.title.attributedText = status == .finished
+    ? textWithStrikethrough(title: title)
+    : NSMutableAttributedString(string: title)
     self.priority.image = {
       switch priority {
       case .low:
@@ -56,13 +62,22 @@ class TaskCell: UITableViewCell, ViewCode {
     self.priority.transform = {
       switch priority {
       case .low:
-        return self.priority.transform.rotated(by: .pi / 2)
+        return CGAffineTransform(rotationAngle: .pi / 2)
       case .medium:
-        return self.priority.transform.rotated(by: .pi)
+        return CGAffineTransform(rotationAngle: .pi)
       case .high:
-        return self.priority.transform.rotated(by: .pi * 1.5)
+        return CGAffineTransform(rotationAngle: .pi * 1.5)
       }
     }()
+  }
+
+  private func textWithStrikethrough(title: String) -> NSMutableAttributedString  {
+    let attributeString = NSMutableAttributedString(string: title)
+    attributeString.addAttribute(
+      NSAttributedString.Key.strikethroughStyle,
+      value: 2,
+      range: NSRange(location: 0, length: attributeString.length))
+    return attributeString
   }
 
   func setupLayout() {}

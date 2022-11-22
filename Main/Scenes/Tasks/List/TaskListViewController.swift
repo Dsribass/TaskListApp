@@ -12,7 +12,7 @@ import RxSwift
 
 class TaskListViewController: SceneViewController<TaskListView> {
 
-  typealias TaskSectionModel = SectionModel<String, Task>
+  typealias TaskSectionModel = SectionModel<String, TaskListViewModel.TaskViewModel>
   typealias DataSource = RxTableViewSectionedReloadDataSource<TaskSectionModel>
 
   // MARK: - Properties
@@ -24,6 +24,7 @@ class TaskListViewController: SceneViewController<TaskListView> {
       configureCell: { (_, table, _, task) in
         let cell = table.dequeueReusableCell(withIdentifier: TaskCell.reuseIdentifier) as! TaskCell
         cell.configure(
+          title: task.title,
           priority: {
             switch(task.priority) {
             case .high: return .high
@@ -31,7 +32,12 @@ class TaskListViewController: SceneViewController<TaskListView> {
             case .low: return .low
             }
           }(),
-          title: task.title)
+          status: {
+            switch(task.status) {
+            case .finished: return .finished
+            case .pending: return .pending
+            }
+          }())
 
         return cell
       },
@@ -42,9 +48,7 @@ class TaskListViewController: SceneViewController<TaskListView> {
   }()
 
   private let tasksSectionsSubject = BehaviorSubject<[TaskSectionModel]>(value: [])
-  private var tasksSections: Observable<[TaskSectionModel]> {
-    tasksSectionsSubject
-  }
+  private var tasksSections: Observable<[TaskSectionModel]> { tasksSectionsSubject }
 
   // MARK: - Initializers
   init(taskListViewModel: TaskListViewModel, navigation: TaskListNavigation) {
@@ -86,8 +90,47 @@ class TaskListViewController: SceneViewController<TaskListView> {
       )
       .disposed(by: bag)
 
+    contentView.tableView.rx
+      .itemMoved
+      .bind { [unowned self] itemMoved in
+        let sourceIndex = itemMoved.sourceIndex
+        let destinationIndex = itemMoved.destinationIndex
+        let hasChangeSection = sourceIndex.section != destinationIndex.section
+        let movedPendingToFinishedSection = sourceIndex.section == 0 && destinationIndex.section == 1
+        let movedFinishedToPendingSection = sourceIndex.section == 1 && destinationIndex.section == 0
+
+        var task = dataSource[destinationIndex]
+
+        if hasChangeSection && movedFinishedToPendingSection {
+          task.status = .pending
+          taskListViewModel.onMoveTaskFromSectionSubject
+            .onNext(task)
+        }
+
+        if hasChangeSection && movedPendingToFinishedSection {
+          task.status = .finished
+          taskListViewModel.onMoveTaskFromSectionSubject
+            .onNext(task)
+        }
+      }
+      .disposed(by: bag)
+
+    contentView.tableView.rx
+      .itemDeleted
+      .bind { [unowned self] index in
+        taskListViewModel.onDeleteTaskSubject.onNext(dataSource[index].id)
+      }
+      .disposed(by: bag)
+
     navigationItem.rightBarButtonItem?.rx.tap
       .bind { [unowned self] _ in navigation.openAddTaskModal() }
+      .disposed(by: bag)
+
+    navigationItem.leftBarButtonItem?.rx.tap
+      .bind { [unowned self] _ in
+        contentView.toggleEditMode()
+        navigationItem.leftBarButtonItem?.title = contentView.isEditing ? "Cancelar" : "Editar"
+      }
       .disposed(by: bag)
   }
 
@@ -95,7 +138,12 @@ class TaskListViewController: SceneViewController<TaskListView> {
     super.setupLayout()
     navigationItem.title = "Tarefas"
     navigationItem.rightBarButtonItem = UIBarButtonItem(
-      title: "Adicionar",
+      image: UIImage(systemName: "plus"),
+      style: .plain,
+      target: .none,
+      action: .none)
+    navigationItem.leftBarButtonItem = UIBarButtonItem(
+      title: "Editar",
       style: .plain,
       target: .none,
       action: .none)

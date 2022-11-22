@@ -9,11 +9,18 @@ import UIKit
 import SnapKit
 
 class TaskListView: UIViewCode {
+  var isEditing = false
+
   var tableView: UITableView = {
     let table = UITableView(frame: .zero, style: .insetGrouped)
     table.register(TaskCell.self, forCellReuseIdentifier: TaskCell.reuseIdentifier)
     return table
   }()
+
+  func toggleEditMode() {
+    isEditing = !isEditing
+    tableView.isEditing = isEditing
+  }
 
   override func setupLayout() {
     super.setupLayout()
