@@ -30,6 +30,7 @@
 		9568776D292D262D00A0693A /* UITextFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9568776C292D262D00A0693A /* UITextFieldContainer.swift */; };
 		95687770292D287300A0693A /* UITextViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9568776F292D287300A0693A /* UITextViewContainer.swift */; };
 		95687772292D29A000A0693A /* UISegmentedControlContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95687771292D29A000A0693A /* UISegmentedControlContainer.swift */; };
+		95687774292E4E0A00A0693A /* TaskDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95687773292E4E0A00A0693A /* TaskDetailViewModel.swift */; };
 		959390122926AA9300A5FB3E /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959390112926AA9300A5FB3E /* AddTaskViewController.swift */; };
 		959390142926AAC900A5FB3E /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959390132926AAC900A5FB3E /* AddTaskView.swift */; };
 		95A621D32927BF400013EA73 /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A621D22927BF400013EA73 /* TaskService.swift */; };
@@ -66,6 +67,7 @@
 		9568776C292D262D00A0693A /* UITextFieldContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldContainer.swift; sourceTree = "<group>"; };
 		9568776F292D287300A0693A /* UITextViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewContainer.swift; sourceTree = "<group>"; };
 		95687771292D29A000A0693A /* UISegmentedControlContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControlContainer.swift; sourceTree = "<group>"; };
+		95687773292E4E0A00A0693A /* TaskDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewModel.swift; sourceTree = "<group>"; };
 		959390112926AA9300A5FB3E /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		959390132926AAC900A5FB3E /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		95A621D22927BF400013EA73 /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			children = (
 				952A87ED292D196C003655F5 /* TaskDetailViewController.swift */,
 				952A87EF292D1979003655F5 /* TaskDetailView.swift */,
+				95687773292E4E0A00A0693A /* TaskDetailViewModel.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				953CF887291EADA400936429 /* ViewCode.swift in Sources */,
 				95A621D92927C6CE0013EA73 /* ApplicationErrors.swift in Sources */,
 				952A87EE292D196C003655F5 /* TaskDetailViewController.swift in Sources */,
+				95687774292E4E0A00A0693A /* TaskDetailViewModel.swift in Sources */,
 				95A621DB2927CCE30013EA73 /* TaskListViewModel.swift in Sources */,
 				953CF88D291EBF6900936429 /* TaskListView.swift in Sources */,
 				953CF867291EA89B00936429 /* AppDelegate.swift in Sources */,

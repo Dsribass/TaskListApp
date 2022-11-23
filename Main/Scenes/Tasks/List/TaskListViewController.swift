@@ -124,7 +124,10 @@ class TaskListViewController: SceneViewController<TaskListView> {
 
     contentView.tableView.rx
       .itemSelected
-      .bind { [unowned self] index in navigation.openDetail(dataSource[index].id) }
+      .bind { [unowned self] index in
+        print(dataSource[index].id)
+        navigation.openDetail(dataSource[index].id)
+      }
       .disposed(by: bag)
 
     navigationItem.rightBarButtonItem?.rx.tap

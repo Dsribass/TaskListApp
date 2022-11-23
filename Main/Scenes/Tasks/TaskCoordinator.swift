@@ -29,7 +29,9 @@ class TaskCoordinator: Coordinator {
 
 extension TaskCoordinator: TaskListNavigation {
   func openDetail(_ id: UUID) {
-    let taskDetail = TaskDetailViewController(id: id)
+    let service = FakeTaskServiceImpl()
+    let viewModel = TaskDetailViewModel(id: id, service: service)
+    let taskDetail = TaskDetailViewController(viewModel: viewModel, id: id)
     navigationController.pushViewController(taskDetail, animated: true)
   }
 
