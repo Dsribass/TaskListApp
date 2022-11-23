@@ -9,8 +9,10 @@ import UIKit
 
 class TaskDetailViewController: SceneViewController<TaskDetailView> {
   private let id: UUID
+  private let service: TaskService
 
-  init(id: UUID) {
+  init(service: TaskService, id: UUID) {
+    self.service = service
     self.id = id
     super.init(
       nibName: String(describing: TaskDetailViewController.self),
@@ -25,3 +27,6 @@ class TaskDetailViewController: SceneViewController<TaskDetailView> {
   }
 }
 
+extension TaskDetailViewController: ViewStates {
+
+}
