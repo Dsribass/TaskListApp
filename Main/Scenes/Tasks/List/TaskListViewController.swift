@@ -67,8 +67,16 @@ class TaskListViewController: SceneViewController<TaskListView> {
     setupObservables()
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    onTryAgainSubject.onNext(())
+  }
+
   // MARK: - Methods
   func setupObservables() {
+    onTryAgainSubject
+      .bind(to: taskListViewModel.onTryAgainSubject)
+      .disposed(by: bag)
+
     taskListViewModel.statesObservable
       .bind { [unowned self] states in
         switch states {
@@ -125,7 +133,6 @@ class TaskListViewController: SceneViewController<TaskListView> {
     contentView.tableView.rx
       .itemSelected
       .bind { [unowned self] index in
-        print(dataSource[index].id)
         navigation.openDetail(dataSource[index].id)
       }
       .disposed(by: bag)
@@ -137,7 +144,7 @@ class TaskListViewController: SceneViewController<TaskListView> {
     navigationItem.leftBarButtonItem?.rx.tap
       .bind { [unowned self] _ in
         contentView.toggleEditMode()
-        navigationItem.leftBarButtonItem?.title = contentView.isEditing ? "Cancelar" : "Editar"
+        navigationItem.leftBarButtonItem?.title = contentView.isEditing ? "Concluir" : "Editar"
       }
       .disposed(by: bag)
   }
@@ -146,8 +153,7 @@ class TaskListViewController: SceneViewController<TaskListView> {
     super.setupLayout()
     navigationItem.title = "Tarefas"
     navigationItem.rightBarButtonItem = UIBarButtonItem(
-      image: UIImage(systemName: "plus"),
-      style: .plain,
+      barButtonSystemItem: .add,
       target: .none,
       action: .none)
     navigationItem.leftBarButtonItem = UIBarButtonItem(

@@ -10,7 +10,7 @@ import Foundation
 
 class TaskDetailViewModel {
   enum State {
-    case loading, error, success(Task)
+    case loading, error, success(Task), finished
   }
 
   private let service: TaskService
@@ -23,6 +23,9 @@ class TaskDetailViewModel {
   let onTryAgainSubject = PublishSubject<Void>()
   var onTryAgain: Observable<Void> { onTryAgainSubject }
 
+  let onFinishTaskSubject = PublishSubject<Void>()
+  var onFinishTask: Observable<Void> { onFinishTaskSubject }
+
   init(id: UUID, service: TaskService) {
     self.id = id
     self.service = service
@@ -33,6 +36,23 @@ class TaskDetailViewModel {
     )
     .bind { [unowned self] _ in getTaskDetail(id: id) }
     .disposed(by: bag)
+
+    onFinishTaskSubject
+      .bind { [unowned self] _ in finishTask() }
+      .disposed(by: bag)
+  }
+
+  private func finishTask() {
+    stateSubject.onNext(.loading)
+
+    service.finishTask(withId: id)
+      .subscribe(
+        onCompleted: { [unowned self] in
+          stateSubject.onNext(.finished)
+        }, onError: { [unowned self] _ in
+          stateSubject.onNext(.error)
+        })
+      .disposed(by: bag)
   }
 
   private func getTaskDetail(id: UUID) {

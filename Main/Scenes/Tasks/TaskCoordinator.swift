@@ -31,7 +31,10 @@ extension TaskCoordinator: TaskListNavigation {
   func openDetail(_ id: UUID) {
     let service = FakeTaskServiceImpl()
     let viewModel = TaskDetailViewModel(id: id, service: service)
-    let taskDetail = TaskDetailViewController(viewModel: viewModel, id: id)
+    let taskDetail = TaskDetailViewController(
+      viewModel: viewModel,
+      navigation: self,
+      id: id)
     navigationController.pushViewController(taskDetail, animated: true)
   }
 
@@ -45,5 +48,11 @@ extension TaskCoordinator: TaskListNavigation {
       sheet.detents = [.large()]
     }
     navigationController.viewControllers[0].present(nav, animated: true)
+  }
+}
+
+extension TaskCoordinator: TaskDetailNavigation {
+  func returnToTasks() {
+    navigationController.popViewController(animated: true)
   }
 }

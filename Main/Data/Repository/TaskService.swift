@@ -14,6 +14,7 @@ protocol TaskService {
   func updateTask(with task: Task) -> Completable
   func getTask(withId id: UUID) -> Single<Task>
   func getTaskList() -> Single<[Task]>
+  func finishTask(withId id: UUID) -> Completable
 }
 
 class FakeTaskServiceImpl: TaskService {
@@ -42,6 +43,19 @@ class FakeTaskServiceImpl: TaskService {
 
   func getTaskList() -> Single<[Task]> {
     Single.just(tasks)
+  }
+
+  func finishTask(withId id: UUID) -> Completable {
+    getTask(withId: id)
+      .flatMapCompletable { [unowned self] task in
+        let finishedTask = Task(
+          id: task.id,
+          title: task.title,
+          description: task.description,
+          priority: task.priority,
+          status: .finished)
+        return updateTask(with: finishedTask)
+    }
   }
 }
 

@@ -11,10 +11,20 @@ import SnapKit
 class TaskDetailViewController: SceneViewController<TaskDetailView> {
   private let id: UUID
   private let taskDetailViewModel: TaskDetailViewModel
+  private let navigation: TaskDetailNavigation
 
-  init(viewModel: TaskDetailViewModel, id: UUID) {
+  private let finishButton: UIBarButtonItem = {
+    return UIBarButtonItem(
+      title: "Concluir",
+      style: .done,
+      target: .none,
+      action: .none)
+  }()
+
+  init(viewModel: TaskDetailViewModel, navigation: TaskDetailNavigation, id: UUID) {
     self.taskDetailViewModel = viewModel
     self.id = id
+    self.navigation = navigation
     super.init(
       nibName: String(describing: TaskDetailViewController.self),
       bundle: nil)
@@ -30,6 +40,10 @@ class TaskDetailViewController: SceneViewController<TaskDetailView> {
   }
 
   func setupObservables() {
+    finishButton.rx.tap
+      .bind(to: taskDetailViewModel.onFinishTaskSubject)
+      .disposed(by: bag)
+
     taskDetailViewModel.statesObservable
       .bind { [unowned self] states in
         switch states {
@@ -41,14 +55,32 @@ class TaskDetailViewController: SceneViewController<TaskDetailView> {
         case .success(let task):
           stopLoading()
           showTaskDetail(task)
+        case .finished:
+          stopLoading()
+          navigation.returnToTasks()
         }
       }
       .disposed(by: bag)
+  }
+
+  override func setupLayout() {
+    super.setupLayout()
   }
 }
 
 extension TaskDetailViewController: ViewStates {
   func showTaskDetail(_ task: Task) {
     contentView.configure(title: task.title, description: task.description, priority: task.priority)
+    if task.status == .pending {
+      self.navigationController?.isToolbarHidden = false
+      var items = [UIBarButtonItem]()
+      items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: .none, action: .none))
+      items.append(finishButton)
+      self.toolbarItems = items
+    }
   }
+}
+
+protocol TaskDetailNavigation {
+  func returnToTasks()
 }
