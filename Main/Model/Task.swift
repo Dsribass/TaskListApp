@@ -9,7 +9,7 @@ import Foundation
 
 struct Task: Equatable {
 
-  enum Priority {
+  enum Priority: CaseIterable {
     case high, medium, low
   }
 

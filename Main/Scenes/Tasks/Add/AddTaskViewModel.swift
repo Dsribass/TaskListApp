@@ -6,8 +6,10 @@
 //
 
 import RxSwift
+import Foundation
 
 class AddTaskViewModel {
+  private let service: TaskService
   let bag = DisposeBag()
 
   private let isTextFieldsFilledSubject = BehaviorSubject<Bool>(value: false)
@@ -21,14 +23,25 @@ class AddTaskViewModel {
 
   let onTitleTextFieldSubject = BehaviorSubject<String?>(value: nil)
   var onTitleTextField: Observable<String?> { onTitleTextFieldSubject }
+  var titleValue: String? { try? onTitleTextFieldSubject.value() }
 
   let onDescriptionTextFieldSubject = BehaviorSubject<String?>(value: nil)
   var onDescriptionTextField: Observable<String?> { onDescriptionTextFieldSubject }
+  var descriptionValue: String? { try? onDescriptionTextFieldSubject.value()}
 
   let onPriorityOptionSubject = BehaviorSubject<Int?>(value: nil)
   var onPriorityOption: Observable<Int?> { onPriorityOptionSubject }
+  var priorityValue: Int? { try? onPriorityOptionSubject.value() }
 
-  init() {
+  let onSubmitButtonSubject = PublishSubject<Void>()
+  var onSubmitButton: Observable<Void> { onSubmitButtonSubject }
+
+  let onCompleteSubmitSubject = PublishSubject<Void>()
+  var onCompleteSubmit: Observable<Void> { onCompleteSubmitSubject }
+
+  init(service: TaskService) {
+    self.service = service
+
     Observable.combineLatest(
       onTitleTextField,
       onDescriptionTextField
@@ -54,6 +67,31 @@ class AddTaskViewModel {
     }
     .bind(to: onEnabledSubmitButtonSubject)
     .disposed(by: bag)
+
+    onSubmitButton
+      .bind { [unowned self] _ in addTask() }
+      .disposed(by: bag)
+  }
+
+  private func addTask() {
+    guard let title = titleValue,
+          let description = descriptionValue,
+          let priority = priorityValue else {
+      return
+    }
+
+    let task = Task(
+      id: UUID(),
+      title: title,
+      description: description,
+      priority: .allCases[priority],
+      status: .pending)
+
+    service.addTask(task)
+      .subscribe(onCompleted: { [unowned self] in
+        onCompleteSubmitSubject.onNext(())
+      })
+      .disposed(by: bag)
   }
 
   private func textFieldHasValue(_  value: String?) -> Bool {

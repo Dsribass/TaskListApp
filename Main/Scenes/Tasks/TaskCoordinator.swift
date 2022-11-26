@@ -38,9 +38,13 @@ extension TaskCoordinator: TaskListNavigation {
     navigationController.pushViewController(taskDetail, animated: true)
   }
 
-  func openAddTaskModal() {
-    let viewModel = AddTaskViewModel()
-    let addTaskVC = AddTaskViewController(addTaskViewModel: viewModel)
+  func openAddTaskModal(onDismiss: @escaping () -> Void) {
+    let service = FakeTaskServiceImpl()
+    let viewModel = AddTaskViewModel(service: service)
+    let addTaskVC = AddTaskViewController(
+      addTaskViewModel: viewModel,
+      navigation: self,
+      onDismiss: onDismiss)
     let nav = UINavigationController(rootViewController: addTaskVC)
     nav.modalPresentationStyle = .pageSheet
 
@@ -54,5 +58,11 @@ extension TaskCoordinator: TaskListNavigation {
 extension TaskCoordinator: TaskDetailNavigation {
   func returnToTasks() {
     navigationController.popViewController(animated: true)
+  }
+}
+
+extension TaskCoordinator: AddTaskNavigation {
+  func closeModal() {
+    navigationController.viewControllers[0].dismiss(animated: true)
   }
 }

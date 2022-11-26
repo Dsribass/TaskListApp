@@ -10,12 +10,16 @@ import RxSwift
 
 class AddTaskViewController: SceneViewController<AddTaskView> {
   private let addTaskViewModel: AddTaskViewModel
+  private let navigation: AddTaskNavigation
+  private let onDismiss: () -> Void
 
   let onAddNewTaskSubject = PublishSubject<Task>()
   var onAddNewTask: Observable<Task> { onAddNewTaskSubject }
 
-  init(addTaskViewModel: AddTaskViewModel) {
+  init(addTaskViewModel: AddTaskViewModel, navigation: AddTaskNavigation, onDismiss: @escaping () -> Void) {
     self.addTaskViewModel = addTaskViewModel
+    self.navigation = navigation
+    self.onDismiss = onDismiss
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -54,7 +58,19 @@ class AddTaskViewController: SceneViewController<AddTaskView> {
     contentView.submitButton.rx.tap
       .bind { [unowned self] _ in
         contentView.titleTextFieldContainer.resignFirstResponder()
+        addTaskViewModel.onSubmitButtonSubject.onNext(())
+      }
+      .disposed(by: bag)
+
+    addTaskViewModel.onCompleteSubmit
+      .bind { [unowned self] _ in
+        navigation.closeModal()
+        onDismiss()
       }
       .disposed(by: bag)
   }
+}
+
+protocol AddTaskNavigation {
+  func closeModal()
 }

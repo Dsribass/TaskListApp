@@ -138,7 +138,11 @@ class TaskListViewController: SceneViewController<TaskListView> {
       .disposed(by: bag)
 
     navigationItem.rightBarButtonItem?.rx.tap
-      .bind { [unowned self] _ in navigation.openAddTaskModal() }
+      .bind { [unowned self] _ in
+        navigation.openAddTaskModal {
+          onTryAgainSubject.onNext(())
+        }
+      }
       .disposed(by: bag)
 
     navigationItem.leftBarButtonItem?.rx.tap
@@ -182,6 +186,6 @@ extension TaskListViewController: ViewStates {
 }
 
 protocol TaskListNavigation {
-  func openAddTaskModal()
+  func openAddTaskModal(onDismiss: @escaping () -> Void)
   func openDetail(_ id: UUID)
 }
