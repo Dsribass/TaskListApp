@@ -44,7 +44,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		952A87EA292BC13E003655F5 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		952A87EB292BC3FB003655F5 /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
 		952A87ED292D196C003655F5 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		952A87EF292D1979003655F5 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
@@ -97,7 +96,6 @@
 		953CF85A291EA89B00936429 = {
 			isa = PBXGroup;
 			children = (
-				952A87EA292BC13E003655F5 /* MyPlayground.playground */,
 				953CF865291EA89B00936429 /* Main */,
 				953CF864291EA89B00936429 /* Products */,
 			);
