@@ -7,4 +7,6 @@
 
 enum ApplicationErrors: Error {
   case notFound
+  case missingValue
+  case unexpected
 }

@@ -13,7 +13,7 @@ struct Task: Equatable {
     case high, medium, low
   }
 
-  enum Status {
+  enum Status: CaseIterable {
     case finished, pending
   }
 

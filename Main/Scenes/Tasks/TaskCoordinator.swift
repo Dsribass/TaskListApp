@@ -16,10 +16,9 @@ class TaskCoordinator: Coordinator {
 
   func start() {
     navigationController.navigationBar.prefersLargeTitles = true
-
-    let service = FakeTaskServiceImpl()
-    let viewModel = TaskListViewModel(service: service)
-    let taskListVC = TaskListViewController(taskListViewModel: viewModel,navigation: self)
+    let taskListVC = TaskListViewController(
+      taskListViewModel: Factory.makeTaskListViewModel(),
+      navigation: self)
 
     navigationController.setViewControllers(
       [taskListVC],
@@ -29,20 +28,16 @@ class TaskCoordinator: Coordinator {
 
 extension TaskCoordinator: TaskListNavigation {
   func openDetail(_ id: UUID) {
-    let service = FakeTaskServiceImpl()
-    let viewModel = TaskDetailViewModel(id: id, service: service)
     let taskDetail = TaskDetailViewController(
-      viewModel: viewModel,
+      viewModel: Factory.makeTaskDetailViewModel(id),
       navigation: self,
       id: id)
     navigationController.pushViewController(taskDetail, animated: true)
   }
 
   func openAddTaskModal(onDismiss: @escaping () -> Void) {
-    let service = FakeTaskServiceImpl()
-    let viewModel = AddTaskViewModel(service: service)
     let addTaskVC = AddTaskViewController(
-      addTaskViewModel: viewModel,
+      addTaskViewModel: Factory.makeAddTaskViewModel(),
       navigation: self,
       onDismiss: onDismiss)
     let nav = UINavigationController(rootViewController: addTaskVC)
